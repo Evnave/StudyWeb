@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Web - Your Learning Companion</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-graduation-cap"></i> Study Web</h2>
+            </div>
+            <ul class="nav-tabs">
+                <li class="nav-tab active" data-tab="notes">
+                    <i class="fas fa-sticky-note"></i>
+                    <span>Notes</span>
+                </li>
+                <li class="nav-tab" data-tab="flashcard">
+                    <i class="fas fa-layer-group"></i>
+                    <span>Flashcard</span>
+                </li>
+                <li class="nav-tab" data-tab="quiz">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Quiz</span>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Notes Tab -->
+            <div id="notes" class="tab-content active">
+                <div class="content-header">
+                    <h1>Notes</h1>
+                    <button class="btn btn-primary" id="newNoteBtn">
+                        <i class="fas fa-plus"></i> New Note
+                    </button>
+                </div>
+                
+                <div class="notes-container">
+                    <div class="notes-sidebar">
+                        <div class="search-box">
+                            <input type="text" placeholder="Search notes..." id="searchNotes">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="notes-list" id="notesList">
+                            <!-- Notes will be populated here -->
+                        </div>
+                    </div>
+                    
+                    <div class="notes-editor">
+                        <div class="editor-toolbar">
+                            <button class="toolbar-btn" data-command="bold">
+                                <i class="fas fa-bold"></i>
+                            </button>
+                            <button class="toolbar-btn" data-command="italic">
+                                <i class="fas fa-italic"></i>
+                            </button>
+                            <button class="toolbar-btn" data-command="underline">
+                                <i class="fas fa-underline"></i>
+                            </button>
+                            <div class="highlight-dropdown">
+                                <button class="toolbar-btn highlight-btn">
+                                    <i class="fas fa-highlighter"></i>
+                                </button>
+                                <div class="highlight-options">
+                                    <button class="highlight-option yellow" data-color="yellow">Yellow</button>
+                                    <button class="highlight-option red" data-color="red">Red</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="editor-content" id="notesEditor" contenteditable="true">
+                            <p>Start writing your notes here...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flashcard Tab -->
+            <div id="flashcard" class="tab-content">
+                <div class="content-header">
+                    <h1>Flashcards</h1>
+                    <button class="btn btn-primary" id="addCardBtn">
+                        <i class="fas fa-plus"></i> Add Card
+                    </button>
+                </div>
+                
+                <div class="flashcard-container">
+                    <div class="flashcard-display">
+                        <div class="card-navigation">
+                            <button class="nav-btn" id="prevCard">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <span class="card-counter" id="cardCounter">0 / 0</span>
+                            <button class="nav-btn" id="nextCard">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="flashcard" id="flashcard">
+                            <div class="card-inner">
+                                <div class="card-front">
+                                    <p id="cardTerm">No cards yet. Add your first card!</p>
+                                </div>
+                                <div class="card-back">
+                                    <p id="cardDefinition">Click "Add Card" to get started.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-controls">
+                            <button class="btn btn-secondary" id="shuffleCards">
+                                <i class="fas fa-random"></i> Shuffle
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="flashcard-sidebar">
+                        <div class="flashcard-creator">
+                            <h3>Create New Card</h3>
+                            <div class="form-group">
+                                <label for="termInput">Term:</label>
+                                <input type="text" id="termInput" placeholder="Enter term...">
+                            </div>
+                            <div class="form-group">
+                                <label for="definitionInput">Definition:</label>
+                                <textarea id="definitionInput" placeholder="Enter definition..."></textarea>
+                            </div>
+                            <button class="btn btn-primary" id="createCardBtn">
+                                <i class="fas fa-plus"></i> Create Card
+                            </button>
+                        </div>
+                        
+                        <div class="cards-list-section">
+                            <h3>All Cards</h3>
+                            <div class="delete-zone" id="deleteZone">
+                                <i class="fas fa-trash"></i>
+                                <span>Drop here to delete</span>
+                            </div>
+                            <div class="cards-list" id="cardsList">
+                                <!-- Cards will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Tab -->
+            <div id="quiz" class="tab-content">
+                <div class="content-header">
+                    <h1>Quiz</h1>
+                    <div class="quiz-controls">
+                        <button class="btn btn-primary" id="newQuizBtn">
+                            <i class="fas fa-plus"></i> New Quiz
+                        </button>
+                        <button class="btn btn-secondary" id="takeQuizBtn">
+                            <i class="fas fa-play"></i> Take Quiz
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="quiz-container">
+                    <!-- Quiz Creator -->
+                    <div id="quizCreator" class="quiz-section">
+                        <h3>Create Quiz Question</h3>
+                        <div class="form-group">
+                            <label for="questionInput">Question:</label>
+                            <textarea id="questionInput" placeholder="Enter your question..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Answer Options:</label>
+                            <div class="answer-options">
+                                <div class="answer-option">
+                                    <input type="radio" name="correctAnswer" value="0" id="answer0">
+                                    <label for="answer0">A.</label>
+                                    <input type="text" class="answer-input" placeholder="Option A">
+                                </div>
+                                <div class="answer-option">
+                                    <input type="radio" name="correctAnswer" value="1" id="answer1">
+                                    <label for="answer1">B.</label>
+                                    <input type="text" class="answer-input" placeholder="Option B">
+                                </div>
+                                <div class="answer-option">
+                                    <input type="radio" name="correctAnswer" value="2" id="answer2">
+                                    <label for="answer2">C.</label>
+                                    <input type="text" class="answer-input" placeholder="Option C">
+                                </div>
+                                <div class="answer-option">
+                                    <input type="radio" name="correctAnswer" value="3" id="answer3">
+                                    <label for="answer3">D.</label>
+                                    <input type="text" class="answer-input" placeholder="Option D">
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" id="addQuestionBtn">
+                            <i class="fas fa-plus"></i> Add Question
+                        </button>
+                    </div>
+                    
+                    <!-- Quiz Taker -->
+                    <div id="quizTaker" class="quiz-section hidden">
+                        <div class="quiz-header">
+                            <h3>Quiz</h3>
+                            <div class="quiz-settings">
+                                <div class="feedback-toggle">
+                                    <label for="instantFeedback">Instant Feedback</label>
+                                    <div class="toggle-container">
+                                        <input type="checkbox" id="instantFeedback" class="toggle-input">
+                                        <label for="instantFeedback" class="toggle-label"></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="quiz-progress">
+                                <span id="questionCounter">Question 1 of 1</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="progressFill"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="quiz-question">
+                            <h4 id="currentQuestion">No questions available.</h4>
+                            <div class="quiz-answers" id="quizAnswers">
+                                <!-- Answer options will be populated here -->
+                            </div>
+                            <div class="feedback-message" id="feedbackMessage" style="display: none;"></div>
+                        </div>
+                        
+                        <div class="quiz-controls">
+                            <button class="btn btn-secondary" id="prevQuestion" disabled>
+                                <i class="fas fa-chevron-left"></i> Previous
+                            </button>
+                            <button class="btn btn-primary" id="nextQuestion">
+                                Next <i class="fas fa-chevron-right"></i>
+                            </button>
+                            <button class="btn btn-success" id="submitQuiz" style="display: none;">
+                                Submit Quiz
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Quiz Results -->
+                    <div id="quizResults" class="quiz-section hidden">
+                        <h3>Quiz Results</h3>
+                        <div class="results-summary">
+                            <div class="score-display">
+                                <span class="score" id="finalScore">0%</span>
+                                <span class="score-label">Correct</span>
+                            </div>
+                            <div class="results-details" id="resultsDetails">
+                                <!-- Results will be populated here -->
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" id="retakeQuiz">
+                            <i class="fas fa-redo"></i> Retake Quiz
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
